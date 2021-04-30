@@ -12,9 +12,10 @@ import Html.Attributes
 layout : Route -> Bool -> Element msg -> Element msg
 layout currentRoute isDark child =
     row
-        [ height fill
+        [ htmlAttribute (Html.Attributes.style "transition" "color 200ms, background-color 200ms")
+        , height fill
+        , scrollbarY
         , width fill
-        , htmlAttribute (Html.Attributes.style "transition" "color 200ms, background-color 200ms")
         , Element.Font.color
             (if isDark then
                 withAlpha 0.7 white
@@ -58,33 +59,9 @@ sidebar currentRoute isDark =
                 |> Tuple.first
                 |> toFloat
                 |> (\x -> x + 15)
-    in
-    column
-        [ paddingEach
-            { bottom = 20
-            , left = 30
-            , right = 35
-            , top = 20
-            }
-        , spacing 25
-        , height fill
-        , Element.Border.widthEach
-            { bottom = 0
-            , left = 0
-            , right = 1
-            , top = 0
-            }
-        , Element.Border.color
-            (withAlpha 0.1
-                (if isDark then
-                    white
 
-                 else
-                    black
-                )
-            )
-        , inFront
-            (el
+        indicator =
+            el
                 [ Element.Background.color red
                 , Element.Border.rounded 6
                 , htmlAttribute (Html.Attributes.style "transition" "transform 200ms")
@@ -95,10 +72,35 @@ sidebar currentRoute isDark =
                 , moveRight 4
                 ]
                 none
-            )
-        ]
-    <|
-        List.map (\( a, _, _ ) -> a) pages
+    in
+    el [ inFront indicator, height fill ] <|
+        column
+            [ paddingEach
+                { bottom = 20
+                , left = 30
+                , right = 35
+                , top = 20
+                }
+            , spacing 25
+            , height fill
+            , Element.Border.widthEach
+                { bottom = 0
+                , left = 0
+                , right = 1
+                , top = 0
+                }
+            , Element.Border.color
+                (withAlpha 0.1
+                    (if isDark then
+                        white
+
+                     else
+                        black
+                    )
+                )
+            ]
+        <|
+            List.map (\( a, _, _ ) -> a) pages
 
 
 buildPages currentRoute pages =
@@ -138,12 +140,14 @@ sidebarPages =
     , Page ( "Settings", FeatherIcons.settings, ElmSidebar__Settings )
     , Page ( "Notifications", FeatherIcons.messageCircle, ElmSidebar__Notifications )
     , Page ( "Favourites", FeatherIcons.star, ElmSidebar__Favourites )
+    , Gap
+    , Gap
     ]
 
 
 renderGap : ( Element msg, Bool, Int )
 renderGap =
-    ( el [ height (px 20) ] none
+    ( el [ height (px 20), width fill ] none
     , False
     , 20
     )
