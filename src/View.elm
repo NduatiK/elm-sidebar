@@ -45,7 +45,14 @@ toBrowserDocument view =
     { title = view.title
     , body =
         [ Element.layout
-            [ Font.family [ Font.typeface "Inter" ]
+            [ Font.family
+                [ Font.typeface "Inter"
+                , Font.external
+                    { name = "Roboto"
+                    , url = "https://fonts.googleapis.com/css?family=Inter"
+                    }
+                , Font.sansSerif
+                ]
             , height fill
             ]
             view.element
