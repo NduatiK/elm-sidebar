@@ -1,8 +1,7 @@
-module Pages.Home_ exposing (Model, Msg, page)
+module Pages.ElmSidebar.Movieonly exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Example exposing (Params)
-import Gen.Route exposing (Route)
+import Gen.Params.Movieonly exposing (Params)
 import Page
 import Request
 import Shared

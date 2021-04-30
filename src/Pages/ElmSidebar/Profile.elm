@@ -1,7 +1,7 @@
-module Pages.Movieonly exposing (Model, Msg, page)
+module Pages.ElmSidebar.Profile exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Movieonly exposing (Params)
+import Gen.Params.Profile exposing (Params)
 import Page
 import Request
 import Shared

@@ -1,7 +1,8 @@
-module Pages.Coursify exposing (Model, Msg, page)
+module Pages.ElmSidebar.Home2 exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Coursify exposing (Params)
+import Gen.Params.Example exposing (Params)
+import Gen.Route exposing (Route)
 import Page
 import Request
 import Shared

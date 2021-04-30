@@ -1,4 +1,4 @@
-module Pages.Favourites exposing (Model, Msg, page)
+module Pages.ElmSidebar.Favourites exposing (Model, Msg, page)
 
 import Element exposing (..)
 import Gen.Params.Favourites exposing (Params)

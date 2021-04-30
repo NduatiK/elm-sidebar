@@ -1,4 +1,4 @@
-module Pages.Home2 exposing (Model, Msg, page)
+module Pages.ElmSidebar.Home_ exposing (Model, Msg, page)
 
 import Element exposing (..)
 import Gen.Params.Example exposing (Params)

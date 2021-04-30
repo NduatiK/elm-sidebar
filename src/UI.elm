@@ -128,16 +128,16 @@ sidebarPages =
     [ Gap
     , Gap
     , Header "Services"
-    , Page ( "Home", FeatherIcons.home, Home_ )
-    , Page ( "Bookonly", FeatherIcons.bookOpen, Bookonly )
-    , Page ( "Movieonly", FeatherIcons.video, Movieonly )
-    , Page ( "Coursify", FeatherIcons.book, Coursify )
+    , Page ( "Home", FeatherIcons.home, ElmSidebar__Home_ )
+    , Page ( "Bookonly", FeatherIcons.bookOpen, ElmSidebar__Bookonly )
+    , Page ( "Movieonly", FeatherIcons.video, ElmSidebar__Movieonly )
+    , Page ( "Coursify", FeatherIcons.book, ElmSidebar__Coursify )
     , Gap
     , Header "Account"
-    , Page ( "Profile", FeatherIcons.user, Profile )
-    , Page ( "Settings", FeatherIcons.settings, Settings )
-    , Page ( "Notifications", FeatherIcons.messageCircle, Notifications )
-    , Page ( "Favourites", FeatherIcons.star, Favourites )
+    , Page ( "Profile", FeatherIcons.user, ElmSidebar__Profile )
+    , Page ( "Settings", FeatherIcons.settings, ElmSidebar__Settings )
+    , Page ( "Notifications", FeatherIcons.messageCircle, ElmSidebar__Notifications )
+    , Page ( "Favourites", FeatherIcons.star, ElmSidebar__Favourites )
     ]
 
 

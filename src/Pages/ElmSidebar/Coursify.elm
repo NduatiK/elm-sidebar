@@ -1,7 +1,7 @@
-module Pages.Notifications exposing (Model, Msg, page)
+module Pages.ElmSidebar.Coursify exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Notifications exposing (Params)
+import Gen.Params.Coursify exposing (Params)
 import Page
 import Request
 import Shared

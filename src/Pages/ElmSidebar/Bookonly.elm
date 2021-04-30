@@ -1,7 +1,7 @@
-module Pages.Profile exposing (Model, Msg, page)
+module Pages.ElmSidebar.Bookonly exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Profile exposing (Params)
+import Gen.Params.Bookonly exposing (Params)
 import Page
 import Request
 import Shared

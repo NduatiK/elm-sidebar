@@ -1,4 +1,4 @@
-module Pages.Settings exposing (Model, Msg, page)
+module Pages.ElmSidebar.Settings exposing (Model, Msg, page)
 
 import Effect exposing (Effect)
 import Element exposing (..)

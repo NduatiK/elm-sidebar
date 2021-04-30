@@ -1,7 +1,7 @@
-module Pages.Bookonly exposing (Model, Msg, page)
+module Pages.ElmSidebar.Notifications exposing (Model, Msg, page)
 
 import Element exposing (..)
-import Gen.Params.Bookonly exposing (Params)
+import Gen.Params.Notifications exposing (Params)
 import Page
 import Request
 import Shared
