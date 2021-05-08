@@ -3,7 +3,10 @@ module Css exposing (..)
 import Bitwise
 import Element exposing (..)
 import Hex
-import Html.Attributes
+
+
+
+-- Thanks https://github.com/passiomatic/elm-designer
 
 
 colorToString : Color -> String
