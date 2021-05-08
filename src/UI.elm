@@ -1,4 +1,4 @@
-module UI exposing (layout, red)
+module UI exposing (Palette, black, defaultPalette, layout, red, transparent, white, withAlpha, defaultPalette2)
 
 import Element exposing (..)
 import Element.Background
@@ -9,37 +9,73 @@ import Gen.Route exposing (Route(..))
 import Html.Attributes
 
 
-layout : Route -> Bool -> Element msg -> Element msg
-layout currentRoute isDark child =
+type alias Palette =
+    { isDark : Bool
+    , backgroundColor : Element.Color
+    , darkBackgroundColor : Element.Color
+    , accentColor : Element.Color
+    , darkAccentColor : Element.Color
+    , textColor : Element.Color
+    , darkTextColor : Element.Color
+    }
+
+
+defaultPalette : Palette
+defaultPalette =
+    { isDark = False
+    , backgroundColor = white
+    , darkBackgroundColor = black
+    , accentColor = red
+    , darkAccentColor = red
+    , textColor = withAlpha 0.8 black
+    , darkTextColor = withAlpha 0.7 white
+    }
+
+
+defaultPalette2 : Palette
+defaultPalette2 =
+    { isDark = False
+    , backgroundColor = white
+    , darkBackgroundColor = black
+    , accentColor = rgb255 0 96 128
+    , darkAccentColor = rgb255 25 148 190
+    , textColor = withAlpha 0.8 black
+    , darkTextColor = withAlpha 0.7 white
+    }
+
+
+layout : Route -> Palette -> Element msg -> Element msg
+layout currentRoute palette child =
     row
         [ htmlAttribute (Html.Attributes.style "transition" "color 200ms, background-color 200ms")
         , height fill
         , scrollbarY
         , width fill
         , Element.Font.color
-            (if isDark then
-                withAlpha 0.7 white
+            (if palette.isDark then
+                palette.darkTextColor
 
              else
-                withAlpha 0.8 black
+                palette.textColor
             )
         , Element.Background.color
-            (if isDark then
-                black
+            (if palette.isDark then
+                palette.darkBackgroundColor
 
              else
-                white
+                palette.backgroundColor
             )
         ]
-        [ sidebar currentRoute isDark
+        [ sidebar currentRoute palette
         , child
         ]
 
 
-sidebar currentRoute isDark =
+sidebar : Route -> Palette -> Element msg
+sidebar currentRoute palette =
     let
         pages =
-            buildPages currentRoute sidebarPages
+            buildPages currentRoute sidebarPages palette
 
         _ =
             pages
@@ -62,7 +98,13 @@ sidebar currentRoute isDark =
 
         indicator =
             el
-                [ Element.Background.color red
+                [ Element.Background.color
+                    (if palette.isDark then
+                        palette.darkAccentColor
+
+                     else
+                        palette.accentColor
+                    )
                 , Element.Border.rounded 6
                 , htmlAttribute (Html.Attributes.style "transition" "transform 200ms")
                 , width (px 8)
@@ -91,11 +133,11 @@ sidebar currentRoute isDark =
                 }
             , Element.Border.color
                 (withAlpha 0.1
-                    (if isDark then
-                        white
+                    (if palette.isDark then
+                        palette.backgroundColor
 
                      else
-                        black
+                        palette.darkBackgroundColor
                     )
                 )
             ]
@@ -103,7 +145,8 @@ sidebar currentRoute isDark =
             List.map (\( a, _, _ ) -> a) pages
 
 
-buildPages currentRoute pages =
+buildPages : Route -> List SidebarElement -> Palette -> List ( Element msg, Bool, Int )
+buildPages currentRoute pages palette =
     List.map
         (\x ->
             case x of
@@ -114,7 +157,7 @@ buildPages currentRoute pages =
                     renderHeader title
 
                 Page page ->
-                    renderPage page currentRoute
+                    renderPage page currentRoute palette
         )
         pages
 
@@ -153,15 +196,23 @@ renderGap =
     )
 
 
-renderPage : ( String, FeatherIcons.Icon, Route ) -> Route -> ( Element msg, Bool, Int )
-renderPage ( title, icon, route ) currentRoute =
+renderPage : ( String, FeatherIcons.Icon, Route ) -> Route -> Palette -> ( Element msg, Bool, Int )
+renderPage ( title, icon, route ) currentRoute palette =
     let
         hInPx =
             20
 
         iconColor =
             if currentRoute == route then
-                [ Element.Font.color red, alpha 0.8 ]
+                [ Element.Font.color
+                    (if palette.isDark then
+                        palette.darkAccentColor
+
+                     else
+                        palette.accentColor
+                    )
+                , alpha 0.8
+                ]
 
             else
                 [ alpha 0.8 ]
@@ -205,16 +256,24 @@ renderHeader title =
 -- COLORS
 
 
+red : Color
 red =
     rgb255 246 52 32
 
 
+black : Color
 black =
     rgb255 25 25 27
 
 
+white : Color
 white =
     rgb255 249 249 251
+
+
+transparent : Color
+transparent =
+    withAlpha 0 white
 
 
 withAlpha : Float -> Color -> Color

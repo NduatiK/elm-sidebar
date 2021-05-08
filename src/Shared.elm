@@ -8,8 +8,10 @@ module Shared exposing
     , update
     )
 
+import Element
 import Json.Decode as Json
 import Request exposing (Request)
+import UI
 
 
 type alias Flags =
@@ -21,17 +23,20 @@ type alias Model =
 
 
 type alias PageOptions =
-    { isDark : Bool }
+    { palette : UI.Palette }
 
 
 type Msg
     = NoOp
-    | ToggleDarkMode
+    | UpdatePalette UI.Palette
 
 
 init : Request -> Flags -> ( Model, Cmd Msg )
 init _ _ =
-    ( { pageOptions = { isDark = False } }, Cmd.none )
+    ( { pageOptions = PageOptions UI.defaultPalette
+      }
+    , Cmd.none
+    )
 
 
 update : Request -> Msg -> Model -> ( Model, Cmd Msg )
@@ -40,8 +45,8 @@ update _ msg ({ pageOptions } as model) =
         NoOp ->
             ( model, Cmd.none )
 
-        ToggleDarkMode ->
-            ( { model | pageOptions = { pageOptions | isDark = not model.pageOptions.isDark } }, Cmd.none )
+        UpdatePalette newPalette ->
+            ( { model | pageOptions = { pageOptions | palette = newPalette } }, Cmd.none )
 
 
 subscriptions : Request -> Model -> Sub Msg

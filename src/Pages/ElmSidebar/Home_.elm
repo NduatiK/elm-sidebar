@@ -25,12 +25,12 @@ page shared req =
 
 
 type alias Model =
-    { req : Request.With Params, isDark : Bool }
+    { req : Request.With Params, palette : UI.Palette }
 
 
 init : Request.With Params -> Shared.PageOptions -> ( Model, Cmd Msg )
 init req sharedOptions =
-    ( Model req sharedOptions.isDark, Cmd.none )
+    ( Model req sharedOptions.palette, Cmd.none )
 
 
 
@@ -64,5 +64,5 @@ subscriptions model =
 view : Model -> View Msg
 view model =
     { title = "Home"
-    , element = UI.layout model.req.route model.isDark none
+    , element = UI.layout model.req.route model.palette none
     }
